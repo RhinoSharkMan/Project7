@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% load static %}
+
+{% block body_block %}
+    <h1>{{ question.question_text }}</h1>
+    <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }} -- {{ choice.votes }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'polls:index' %}">Back to Questions</a>
+{% endblock %}

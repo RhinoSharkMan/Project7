@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surveys</title>
+</head>
+<body>
+    <h1>Surveys</h1>
+    <ul>
+        {% for survey in surveys %}
+            <li><a href="{% url 'polls:survey_detail' survey.id %}">{{ survey.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

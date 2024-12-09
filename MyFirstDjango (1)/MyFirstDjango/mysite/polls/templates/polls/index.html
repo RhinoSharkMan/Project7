@@ -1,0 +1,33 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% load time_test %}
+{% load exciting_text %}
+
+{% block body_block %}
+
+Current Time: {% time_test %}<br>
+This is exciting text: {{ 'woohoo'|exciting_text }}<br>
+<form id="logout-form" action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-link">Logout</button>
+</form>
+
+{% if user.is_authenticated %}
+    {% if questions %}
+        <ul>
+        {% for question in questions %}
+            {# This is a comment #}
+            <!--Hello there-->
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text|exciting_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else%}
+        No questions found
+    {% endif %}
+    {% include "polls/inner_file.html" %}
+    <img src="{% static 'polls/reggie.webp' %}">
+{% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}">Login page</a>
+{% endif %}
+
+{% endblock %}
